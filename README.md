@@ -13,9 +13,9 @@
 
 # Setup Instructions
 1. Clone Repo & Install Dependencies
-    git clone hhttps://github.com/bensurachelmathew/AI-Travel-Buddy.git
-    cd travel-buddy
-    npm install
+        git clone https://github.com/bensurachelmathew/AI-Travel-Buddy.git
+        cd travel-buddy
+        npm install
 
 2. Configure Environment
 
