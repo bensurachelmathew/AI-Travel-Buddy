@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Travel Buddy</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    #chat { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; min-height: 400px; }
+    .message { margin: 10px 0; }
+    .user { color: blue; }
+    .bot { color: green; }
+    input { padding: 10px; width: 75%; }
+    button { padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🌍 AI Travel Buddy</h1>
+  <div id="chat"></div>
+  <input id="userInput" type="text" placeholder="Ask about your trip...">
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    async function sendMessage() {
+      const input = document.getElementById("userInput").value;
+      if (!input) return;
+
+      addMessage("user", input);
+
+      const response = await fetch("http://localhost:8000/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input })
+      });
+
+      const data = await response.json();
+      addMessage("bot", data.reply);
+
+      document.getElementById("userInput").value = "";
+    }
+
+    function addMessage(sender, text) {
+      const chat = document.getElementById("chat");
+      const msg = document.createElement("div");
+      msg.className = "message " + sender;
+      msg.innerText = (sender === "user" ? "You: " : "Buddy: ") + text;
+      chat.appendChild(msg);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
